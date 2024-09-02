@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "8b2f31a0-989e-4727-ad88-f39edcbd4b0a",
+		"name": "performance-load-tests-listar-produtos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4067931"
+	},
+	"item": [
+		{
+			"name": "Listar Produtos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validação da estrutura de resposta - Listagem de Produtos\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData).to.have.property(\"quantidade\").that.is.a(\"number\");\r",
+							"    pm.expect(jsonData).to.have.property(\"produtos\").that.is.an(\"array\");\r",
+							"    \r",
+							"    jsonData.produtos.forEach(function(produto) {\r",
+							"        pm.expect(produto).to.be.an(\"object\");\r",
+							"        pm.expect(produto).to.have.property(\"nome\").that.is.a(\"string\");\r",
+							"        pm.expect(produto).to.have.property(\"preco\").that.is.a(\"number\");\r",
+							"        pm.expect(produto).to.have.property(\"descricao\").that.is.a(\"string\");\r",
+							"        pm.expect(produto).to.have.property(\"quantidade\").that.is.a(\"number\");\r",
+							"        pm.expect(produto).to.have.property(\"_id\").that.is.a(\"string\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/produtos"
+			},
+			"response": []
+		}
+	]
+}

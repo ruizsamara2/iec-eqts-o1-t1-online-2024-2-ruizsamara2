@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "ebd9ae6b-6625-4f61-8d08-51c00bf63ba6",
+		"name": "security-tests-cadastrar-produto-sem-autenticacao",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4067931"
+	},
+	"item": [
+		{
+			"name": "Cadastrar produto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code é 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar mensagem de sucesso\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Token de acesso ausente, inválido, expirado ou usuário do token não existe mais\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Iphone 17\",\r\n  \"preco\": 12000,\r\n  \"descricao\": \"Celular\",\r\n  \"quantidade\": 381\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/produtos"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "idProduto",
+			"value": ""
+		}
+	]
+}
